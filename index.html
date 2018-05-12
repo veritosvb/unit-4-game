@@ -43,23 +43,22 @@
     <div class="row-fluid">
         <h1 style="padding: 30px" class="text-center">Star Wars RPG!</h1>
     </div>
-    <div class="row-fluid">
+    <div class="row-fluid" id = "apt">
         <h2>Available Players</h2>
     </div>
     <div class="row align-items-center" id="availablePlayers">
-
       <div class= "col-3 card" id="darth-maul">
         <div class="card-body">
           <h5 class="card-title p1T">Darth Maul</h5>
           <img class="card-img personajes" id= "p1I" src="assets/images/darth-maul.jpg" alt="darth maul" value ="Darth Maul" >
-          <p class="card-text text-center"><small class="text-muted">123</small></p>
+          <p class="card-text text-center"><span class="text-muted">123</span></p>
         </div>
       </div>
       <div class= "col-3 card" id="darth-sidious">
         <div class="card-body">
           <h5 class="card-title">Darth Sidious</h5>
           <img class="card-img personajes" src="assets/images/darth-sidious.png" alt="darth sidious">
-          <p class="card-text text-center"><small class="text-muted ">89</small></p>
+          <p class="card-text text-center"><span class="">89</span></p>
         </div>
       </div>
         
@@ -67,7 +66,7 @@
         <div class="card-body">
           <h5 class="card-title">Luke Skywalker</h5>
           <img class="card-img personajes" src="assets/images/luke-skywalker.jpg" alt="Luke Skywalker">
-          <p class="card-text text-center"><small class="text-muted">678</small></p>
+          <p class="card-text text-center"><span class="">30</span></p>
         </div>    
       </div>
 
@@ -75,7 +74,7 @@
         <div class="card-body">
           <h5 class="card-title">Obi Wan</h5>
           <img class="card-img personajes" src="assets/images/obi-wan.jpg" alt="Obi Wan">
-          <p class="card-text text-center"><small class="text-muted">678</small></p>
+          <p class="card-text text-center"><span class="text-muted">120</span></p>
          </div>
       </div>
     </div>
@@ -88,10 +87,7 @@
     <div class="row-fluid">
         <h2>Enemies Available to Attack</h2>
     </div>
-    <div class="row enemiesAvailable align-items-center">
-        <div class= "col" id="enemy1" style = "background-color: red", "margin:10px" >123</div>
-        <div class= "col" id="enemy2" style = "background-color: red", "margin:10px">123</div>
-        <div class= "col" id="enemy3" style = "background-color: red", "margin:10px" >345</div>
+    <div class="row align-items-center" id="enemiesAvailable">
     </div>
     <div class="row-fluid">
         <h2>Fight Section</h2>
@@ -99,11 +95,11 @@
     </div>
     <div class="row-fluid">
         <h2>Defender</h2>
-        <div class= "col" id="Defender">He is defender</div>
+        <div class= "" id="Defender"></div>
     </div>
     <div class="row-fluid">
     
-        <div class= "col" id="EnemiesAvailable">Messages</div>
+        <div class= "col" id="messagesFight"></div>
         <button type="button" class="btn btn-primary btn-block active" aria-pressed="true" value= "restart">Restart</button>
 
     </div>
