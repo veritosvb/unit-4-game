@@ -1,59 +1,84 @@
 
 var selectedCharacter;
 var selectedDefender;
+var damage;
+var status;
 var yourDefender = false;
 var yourAttacker = true;
-var arrayWhoishere = [{name:"darth-maul", hp:123,role:"enemy", damage:7},{name:"luke-skywalker",hp:89,role:"enemy", damage: 4},{name:"darth-sidious",hp:30,role:"enemy", damage:6},{name:"obi-wan",hp:120,role:"enemy", damage:1}];
+var arrayWhoishere = [{name:"darth-maul", hp:0,role:"enemy", damage:0},{name:"luke-skywalker",hp:0,role:"enemy", damage: 0},{name:"darth-sidious",hp:0,role:"enemy", damage:0},{name:"obi-wan",hp:0,role:"enemy", damage:0}];
+
+
 
 $(document).ready(function() {
-$("#darth-maul").on("click", function(){
-    setAttacker(this);
-    setDefender(this);
+    $("#darth-maul").on("click", function(){
+        setAttacker(this);
+        setDefender(this);
+    });
+
+    $("#darth-sidious").on("click", function(){
+        setAttacker(this);
+        setDefender(this);
+    });
+
+    $("#luke-skywalker").on("click", function(){
+        setAttacker(this);
+        setDefender(this);
+    });
+
+    $("#obi-wan").on("click", function(){
+        setAttacker(this);
+        setDefender(this);
+    });
+
+    $("#attack").on("click", function(){
+        if(!yourAttacker && !yourDefender){
+            attack();
+        }
+    });
+
+    $("#restart").on("click", function(){ 
+        for(var i = 0; i < arrayWhoishere.length; i++){
+                $("#" + arrayWhoishere[i].name).attr( "style", "border-color: white");
+                $("#" + arrayWhoishere[i].name).appendTo("#availablePlayers");
+        }
+        yourAttacker = true;
+        yourDefender = false;
+        status = 0;
+        $("#apt").show();
+        $("#messagesFight").text("");
+        $("#restart").hide();
+        setDamageHP();
+
+    });
+
 });
 
-$("#darth-sidious").on("click", function(){
-    setAttacker(this);
-    setDefender(this);
-});
+function setDamageHP(){
+    for(var i = 0; i < arrayWhoishere.length; i++){
+        arrayWhoishere[i].damage = Math.ceil(Math.random()*11);
+        arrayWhoishere[i].hp = Math.floor(Math.random()*150);
+        $("#"+arrayWhoishere[i].name).find("#hp").text(arrayWhoishere[i].hp);
+    }
+}
 
-$("#luke-skywalker").on("click", function(){
-    setAttacker(this);
-    setDefender(this);
-});
-
-$("#obi-wan").on("click", function(){
-    setAttacker(this);
-    setDefender(this);
-});
-
-$("#attack").on("click", function(){
-   if(!yourAttacker && !yourDefender){
-        console.log("ready to attack");
-        attack();
-   }
-});
-
-});
-
-
-
+setDamageHP();
 function setAttacker(event){
     if(yourAttacker){
         yourAttacker =false;
-        console.log(event.id);
+        $("#apt").hide();
+        style="display: visible"
+        yourDefender=true;
         for(var i = 0; i < arrayWhoishere.length; i++){
             if(arrayWhoishere[i].name ==event.id){
                 selectedCharacter = arrayWhoishere[i];
-                arrayWhoishere[i].role = "attack";
-                $("#" + event.id).attr( "style", "background-color: green");
+                damage=selectedCharacter.damage;
+                $("#" + event.id).attr( "style", "border-color: green");
                 $("#" + event.id).appendTo("#selectedPlayer");
-                $("#apt").remove();
             }else{
-                $("#" + arrayWhoishere[i].name).attr( "style", "background-color: red");
+                $("#" + arrayWhoishere[i].name).attr( "style", "border-color: red");
                 $("#" + arrayWhoishere[i].name).appendTo("#enemiesAvailable");
             }
         }
-        yourDefender=true;
     }
 }
 
@@ -64,21 +89,52 @@ function setDefender(event){
             if(arrayWhoishere[i].name ==event.id){
                 selectedDefender = arrayWhoishere[i];
                 arrayWhoishere[i].role = "defend";
-                $("#" + event.id).attr( "style", "background-color: black; color:white" );
+                $("#" + event.id).attr( "style", "border-color: black;" );
                 $("#" + event.id).appendTo("#Defender");
             }
          }
     }
 }
 
-function randomToDefender(){
-var damage = 0;
-return damage;
+function calculateNewHp(){
+    //Vidas del defender
+    selectedDefender.hp = selectedDefender.hp - selectedCharacter.damage;
+    $("#"+selectedDefender.name).find("#hp").text(selectedDefender.hp);
+
+    //Vidas del attacker
+    selectedCharacter.hp = selectedCharacter.hp - selectedDefender.damage;
+    $("#"+selectedCharacter.name).find("#hp").text(selectedCharacter.hp);
+
+    //Solo actualizo el damage del atacante
+    selectedCharacter.damage = selectedCharacter.damage + damage;
 }
 
 function attack(){
-var g = selectedDefender.hp;
-selectedDefender.hp = selectedDefender.hp + randomToDefender();
-$("#messagesFight").text("You attacked " + selectedDefender.name + " for " + randomToDefender() + " damage ");
-$("#messagesFight").append("<p>" + selectedDefender.name + " attacked you back for " + randomToDefender() + "</p>");
+    calculateNewHp();
+    result();
+   
 }
+
+function result(){
+    if(selectedCharacter.hp > 0 && selectedDefender.hp > 0 ){
+        $("#messagesFight").text("You attacked " + selectedDefender.name + " for " + selectedCharacter.damage + " damage ");
+        $("#messagesFight").append("<p>" + selectedDefender.name + " attacked you back for " + selectedDefender.damage + "</p>");
+    }
+    else if (selectedCharacter.hp <= 0){
+        console.log("you lose!!");
+        $("#messagesFight").html("<p> You been defeated...GAME OVER </p>");
+        $("#restart").show();
+
+    } else {
+        status++;
+        $("#" + selectedDefender.name).remove();
+        $("#messagesFight").html("<p> YOU WON! </p>");
+        if(status < 3){
+             $("#messagesFight").append("<p> Select another defender </p>");
+             $("#restart").show();
+        }
+        yourDefender=true;
+      }
+}
+
+
