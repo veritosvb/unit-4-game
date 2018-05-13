@@ -38,7 +38,7 @@ $(document).ready(function() {
 
     $("#restart").on("click", function(){ 
         for(var i = 0; i < arrayWhoishere.length; i++){
-                $("#" + arrayWhoishere[i].name).attr( "style", "border-color: white");
+                $("#" + arrayWhoishere[i].name).attr( "style", "border-color: none");
                 $("#" + arrayWhoishere[i].name).appendTo("#availablePlayers");
         }
         yourAttacker = true;
@@ -83,6 +83,8 @@ function setAttacker(event){
 }
 
 function setDefender(event){
+    $("#messagesFight").text("");
+
     if(!yourAttacker && yourDefender && selectedCharacter.name != event.id){
         yourDefender=false;
         for(var i = 0; i < arrayWhoishere.length; i++){
@@ -98,12 +100,12 @@ function setDefender(event){
 
 function calculateNewHp(){
     //Vidas del defender
-    selectedDefender.hp = selectedDefender.hp - selectedCharacter.damage;
     $("#"+selectedDefender.name).find("#hp").text(selectedDefender.hp);
+    selectedDefender.hp = selectedDefender.hp - selectedCharacter.damage;
 
     //Vidas del attacker
-    selectedCharacter.hp = selectedCharacter.hp - selectedDefender.damage;
     $("#"+selectedCharacter.name).find("#hp").text(selectedCharacter.hp);
+    selectedCharacter.hp = selectedCharacter.hp - selectedDefender.damage;
 
     //Solo actualizo el damage del atacante
     selectedCharacter.damage = selectedCharacter.damage + damage;
@@ -127,12 +129,14 @@ function result(){
 
     } else {
         status++;
-        $("#" + selectedDefender.name).remove();
+        $("#" + selectedDefender.name).hide();
+
         $("#messagesFight").html("<p> YOU WON! </p>");
         if(status < 3){
              $("#messagesFight").append("<p> Select another defender </p>");
         }else{
             setDamageHP();
+            $("#restart").show();
         }
 
         yourDefender=true;
