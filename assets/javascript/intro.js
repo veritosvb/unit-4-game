@@ -134,7 +134,7 @@ function result(){
 
         $("#messagesFight").html("<p> YOU WON! </p>");
         if(status < 3){
-             $("#messagesFight").append("<p> Select another defender </p>");
+             $("#messagesFight").append("<p> Select another enemy to defeat </p>");
         }else{
             setDamageHP();
             $("#restart").show();
