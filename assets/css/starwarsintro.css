@@ -7,10 +7,6 @@ body, html{
 
 }
 
-@font-face {
-  font-family: jedi;
-  src: url(Starjedi.ttf);
-}
 
 .star-wars-intro {
   background: url("../images/stars-bg.jpg") center center;
@@ -134,10 +130,14 @@ body, html{
 
 .card{
   color:black;
+  border:5px solid yellow;
 }
-
+#messagesFight{
+  text-align: center;
+  padding: 30px;
+}
 .main-title{
-  font-family: "jedi";
+  font-family: 'Russo One', sans-serif;
   border: 18px solid ;
   padding: 20px;
 }
@@ -146,9 +146,12 @@ body, html{
   background: url("../images/star_wars_xwing.jpg");
   background-repeat: no-repeat;
   background-attachment: fixed;
-  background-position: center; 
+  background-position: center; }
 
-
+.btn{
+  background-color: #000;
+  border:5px solid yellow;
+  width:150px;
 }
 footer {
   padding: 25px 0;

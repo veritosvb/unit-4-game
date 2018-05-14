@@ -5,7 +5,7 @@ var damage;
 var status;
 var yourDefender = false;
 var yourAttacker = true;
-var arrayWhoishere = [{name:"darth-maul", hp:0,role:"enemy", damage:0},{name:"luke-skywalker",hp:0,role:"enemy", damage: 0},{name:"darth-sidious",hp:0,role:"enemy", damage:0},{name:"obi-wan",hp:0,role:"enemy", damage:0}];
+var arrayWhoishere = [{name:"darth-maul", hp:0, damage:0},{name:"luke-skywalker",hp:0, damage: 0},{name:"darth-sidious",hp:0, damage:0},{name:"obi-wan",hp:0, damage:0}];
 
 
 
@@ -125,9 +125,10 @@ function result(){
     else if (selectedCharacter.hp <= 0){
         console.log("you lose!!");
         $("#messagesFight").html("<p> You been defeated...GAME OVER </p>");
+        yourAttacker=true;
         $("#restart").show();
 
-    } else {
+    } else if (selectedDefender.hp <= 0){
         status++;
         $("#" + selectedDefender.name).hide();
 
@@ -138,9 +139,9 @@ function result(){
             setDamageHP();
             $("#restart").show();
         }
-
         yourDefender=true;
-      }
+
+    }
 }
 
 
