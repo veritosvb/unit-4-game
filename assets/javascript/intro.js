@@ -7,7 +7,7 @@ var yourDefender = false;
 var yourAttacker = true;
 var loser = true;
 var arrayWhoishere = [{name:"darth-maul", hp:0, damage:0},{name:"luke-skywalker",hp:0, damage: 0},{name:"darth-sidious",hp:0, damage:0},{name:"obi-wan",hp:0, damage:0}];
-
+var audio = new Audio("assets/music/Lightsaber.mp3");
 
 
 $(document).ready(function() {
@@ -34,6 +34,7 @@ $(document).ready(function() {
     $("#attack").on("click", function(){
         if(!yourAttacker && !yourDefender &&loser){
             attack();
+            audio.play();
         }
     });
 
