@@ -5,6 +5,7 @@ var damage;
 var status;
 var yourDefender = false;
 var yourAttacker = true;
+var loser = true;
 var arrayWhoishere = [{name:"darth-maul", hp:0, damage:0},{name:"luke-skywalker",hp:0, damage: 0},{name:"darth-sidious",hp:0, damage:0},{name:"obi-wan",hp:0, damage:0}];
 
 
@@ -31,7 +32,7 @@ $(document).ready(function() {
     });
 
     $("#attack").on("click", function(){
-        if(!yourAttacker && !yourDefender){
+        if(!yourAttacker && !yourDefender &&loser){
             attack();
         }
     });
@@ -55,13 +56,14 @@ $(document).ready(function() {
 
 function setDamageHP(){
     for(var i = 0; i < arrayWhoishere.length; i++){
-        arrayWhoishere[i].damage = Math.ceil(Math.random()*11);
-        arrayWhoishere[i].hp = Math.floor(Math.random()*150);
+        arrayWhoishere[i].damage = Math.round((Math.random()+1)*10);
+        arrayWhoishere[i].hp = Math.round((Math.random()+1)*110);
         $("#"+arrayWhoishere[i].name).find("#hp").text(arrayWhoishere[i].hp);
     }
 }
 
 setDamageHP();
+
 function setAttacker(event){
     if(yourAttacker){
         yourAttacker =false;
@@ -100,8 +102,9 @@ function setDefender(event){
 
 function calculateNewHp(){
     //Vidas del defender
-    $("#"+selectedDefender.name).find("#hp").text(selectedDefender.hp);
     selectedDefender.hp = selectedDefender.hp - selectedCharacter.damage;
+    $("#"+selectedDefender.name).find("#hp").text(selectedDefender.hp);
+
 
     //Vidas del attacker
     $("#"+selectedCharacter.name).find("#hp").text(selectedCharacter.hp);
@@ -122,11 +125,12 @@ function result(){
     if(selectedCharacter.hp > 0 && selectedDefender.hp > 0 ){
         $("#messagesFight").text("You attacked " + selectedDefender.name + " for " + selectedCharacter.damage + " damage ");
         $("#messagesFight").append("<p>" + selectedDefender.name + " attacked you back for " + selectedDefender.damage + "</p>");
+
     }
     else if (selectedCharacter.hp <= 0){
         console.log("you lose!!");
         $("#messagesFight").html("<p> You been defeated...GAME OVER </p>");
-        yourAttacker=true;
+        loser = false;
         $("#restart").show();
 
     } else if (selectedDefender.hp <= 0){
