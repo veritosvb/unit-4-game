@@ -114,6 +114,7 @@ function calculateNewHp(){
 function attack(){
     calculateNewHp();
     result();
+
    
 }
 
