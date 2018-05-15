@@ -44,6 +44,8 @@ $(document).ready(function() {
         }
         yourAttacker = true;
         yourDefender = false;
+        loser = true;
+
         status = 0;
         $("#apt").show();
         $("#messagesFight").text("");
@@ -123,7 +125,7 @@ function attack(){
 
 function result(){
     if(selectedCharacter.hp > 0 && selectedDefender.hp > 0 ){
-        $("#messagesFight").text("You attacked " + selectedDefender.name + " for " + selectedCharacter.damage + " damage ");
+        $("#messagesFight").text("You attacked " + selectedDefender.name + " for " + (selectedCharacter.damage -damage)+ " damage ");
         $("#messagesFight").append("<p>" + selectedDefender.name + " attacked you back for " + selectedDefender.damage + "</p>");
 
     }

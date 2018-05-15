@@ -129,6 +129,11 @@ body, html{
     color:black;
     border:5px solid yellow;
   }
+
+ h1{
+    background-color: #EBD71C;
+
+  }
   #messagesFight{
     text-align: center;
     padding: 30px;
